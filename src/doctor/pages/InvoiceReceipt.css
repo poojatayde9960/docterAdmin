@@ -1,0 +1,495 @@
+.invoice-container {
+    width: 100%;
+    min-height: 100vh;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.invoice-wrapper {
+    width: 100%;
+    max-width: 800px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* Header with Medical Graphics */
+.invoice-header {
+    position: relative;
+    background: linear-gradient(135deg, #E8F4F8 0%, #D6EDF6 100%);
+    height: 150px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    overflow: hidden;
+}
+
+.medical-graphic {
+    position: absolute;
+    opacity: 0.7;
+}
+
+.medical-graphic.syringe {
+    left: 60px;
+    top: 30px;
+}
+
+.medical-graphic.microscope {
+    left: 230px;
+    top: 35px;
+}
+
+.medical-graphic.pills {
+    right: 180px;
+    top: 30px;
+}
+
+.medical-graphic.molecules {
+    right: 30px;
+    top: 20px;
+}
+
+/* Invoice Content */
+.invoice-content {
+    padding: 30px 40px 40px 40px;
+}
+
+/* Top Section */
+.invoice-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+/* Company Info */
+.company-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.logo-icon svg {
+    width: 50px;
+    height: 50px;
+}
+
+.company-name {
+    display: flex;
+    flex-direction: column;
+}
+
+.tech-text {
+    font-size: 18px;
+    font-weight: 700;
+    color: #F39C12;
+    letter-spacing: 0.5px;
+}
+
+.surya-text {
+    color: #3498DB;
+}
+
+.tagline {
+    font-size: 11px;
+    color: #3498DB;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Invoice Title */
+.invoice-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #000000;
+    margin: 0 0 15px 0;
+}
+
+/* Invoice Meta */
+.invoice-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.meta-row {
+    display: flex;
+    gap: 30px;
+}
+
+.meta-label {
+    font-size: 14px;
+    color: #000000;
+    font-weight: 600;
+    min-width: 60px;
+}
+
+.meta-value {
+    font-size: 14px;
+    color: #333333;
+}
+
+/* Billing Info */
+.billing-info {
+    text-align: right;
+}
+
+.bill-to-label {
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.patient-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    margin-bottom: 5px;
+}
+
+.patient-address {
+    font-size: 13px;
+    color: #666666;
+    line-height: 1.4;
+}
+
+.patient-phone {
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+    margin-top: 5px;
+}
+
+/* Medicine Table */
+.medicine-table {
+    margin-bottom: 25px;
+}
+
+.medicine-table table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+.medicine-table thead tr {
+    background: linear-gradient(135deg, #AED6F1 0%, #85C1E9 100%);
+}
+
+.medicine-table thead th {
+    padding: 12px 15px;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+    border: none;
+}
+
+.medicine-table thead th:first-child {
+    border-radius: 0;
+}
+
+.medicine-table thead th:last-child {
+    border-radius: 0;
+}
+
+.medicine-table tbody tr {
+    background: #F8FCFF;
+    border-left: 1px solid #AED6F1;
+    border-right: 1px solid #AED6F1;
+}
+
+.medicine-table tbody tr:last-child {
+    border-bottom: 1px solid #AED6F1;
+}
+
+.medicine-table tbody td {
+    padding: 15px;
+    font-size: 14px;
+    color: #000000;
+    border: none;
+}
+
+.medicine-name {
+    font-weight: 500;
+}
+
+.quantity {
+    text-align: left;
+}
+
+.timing {
+    color: #333333;
+}
+
+.price {
+    text-align: left;
+    font-weight: 600;
+}
+
+.col-medicine {
+    width: 20%;
+}
+
+.col-qty {
+    width: 10%;
+}
+
+.col-time {
+    width: 50%;
+}
+
+.col-price {
+    width: 20%;
+}
+
+/* Totals Section */
+.totals-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.total-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
+    text-transform: uppercase;
+}
+
+.total-row.report-item .total-label {
+    text-transform: none;
+    font-weight: 400;
+    padding-left: 20px;
+}
+
+.total-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #000000;
+}
+
+/* Grand Total */
+.grand-total-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #E0E0E0;
+}
+
+.grand-total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.grand-total-label {
+    font-size: 18px;
+    font-weight: 800;
+    color: #000000;
+}
+
+.grand-total-value {
+    font-size: 18px;
+    font-weight: 800;
+    color: #000000;
+}
+
+/* Payment Method */
+.payment-method-section {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.payment-method-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #27AE60;
+    margin-bottom: 5px;
+}
+
+.payment-method-value {
+    font-size: 14px;
+    color: #999999;
+}
+
+/* Invoice Footer */
+.invoice-footer {
+    position: relative;
+    background: linear-gradient(135deg, #E8F4F8 0%, #D6EDF6 100%);
+    padding: 25px 40px;
+    margin: 0 -40px -40px -40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 0 0 20px 20px;
+}
+
+.footer-molecules-left {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+.footer-pills-right {
+    position: absolute;
+    right: 20px;
+    bottom: 10px;
+}
+
+.footer-contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+    padding: 0 200px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.contact-item svg {
+    flex-shrink: 0;
+}
+
+.contact-item span {
+    font-size: 14px;
+    color: #000000;
+    font-weight: 500;
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 20px;
+    padding: 20px 40px;
+    background: #f5f5f5;
+    border-radius: 0 0 20px 20px;
+}
+
+.action-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.action-btn svg {
+    width: 24px;
+    height: 24px;
+}
+
+.print-btn {
+    background: #2196F3;
+}
+
+.print-btn:hover {
+    background: #1976D2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.download-btn {
+    background: #FF5722;
+}
+
+.download-btn:hover {
+    background: #E64A19;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 87, 34, 0.3);
+}
+
+.share-btn {
+    background: #4CAF50;
+}
+
+.share-btn:hover {
+    background: #45A049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+/* Responsive Design */
+@media print {
+    .invoice-container {
+        padding: 0;
+        background: white;
+    }
+
+    .invoice-wrapper {
+        box-shadow: none;
+        max-width: 100%;
+    }
+
+    .action-buttons {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .invoice-header {
+        height: 120px;
+        padding: 0 20px;
+    }
+
+    .medical-graphic {
+        transform: scale(0.7);
+    }
+
+    .invoice-content {
+        padding: 20px;
+    }
+
+    .invoice-top {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .billing-info {
+        text-align: left;
+    }
+
+    .medicine-table {
+        overflow-x: auto;
+    }
+
+    .medicine-table table {
+        min-width: 600px;
+    }
+
+    .footer-contact-info {
+        padding: 0 20px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .invoice-footer {
+        padding: 25px 20px;
+        margin: 0 -20px -20px -20px;
+    }
+}
