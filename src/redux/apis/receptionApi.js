@@ -18,6 +18,15 @@ export const receptionApi = createApi({
                 },
                 providesTags: ["auth"]
             }),
+            getTransaction: builder.query({
+                query: () => {
+                    return {
+                        url: "/get-transaction",
+                        method: "GET"
+                    }
+                },
+                providesTags: ["auth"]
+            }),
             addReception: builder.mutation({
                 query: userData => {
                     return {
@@ -63,4 +72,4 @@ export const receptionApi = createApi({
     }
 })
 
-export const { useAddPlanMutation, useAddReceptionMutation, useGetReceptionQuery, useAddDoctorMutation, useGetPlansQuery, useAddUserMutation } = receptionApi
+export const { useAddPlanMutation, useAddReceptionMutation, useGetTransactionQuery, useGetReceptionQuery, useAddDoctorMutation, useGetPlansQuery, useAddUserMutation } = receptionApi

@@ -269,11 +269,11 @@ export default function AllDoctors() {
                         </div>
 
                         {/* Email */}
-                        <div className="flex items-center gap-2">
+                        <div className="flex  items-center gap-2">
                             <div className="text-blue-600">
                                 <FaEnvelope />
                             </div>
-                            <p>{doctor.email}</p>
+                            <p className="text-black">{doctor.email}</p>
                         </div>
 
                         {/* Contact */}
@@ -281,7 +281,7 @@ export default function AllDoctors() {
                             <div className="text-blue-600">
                                 <FaPhoneAlt />
                             </div>
-                            <p>{doctor.contact}</p>
+                            <p className="text-black">{doctor.contact}</p>
                         </div>
                     </div>
                 </Link>

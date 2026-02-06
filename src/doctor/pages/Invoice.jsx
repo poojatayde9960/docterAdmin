@@ -2,8 +2,10 @@ import React from 'react';
 import { FaUser, FaUserMd, FaCalendarAlt, FaEye } from 'react-icons/fa';
 import { useGetInvoiceQuery } from '../../redux/apis/patientsApi';
 import { IoTimeOutline, IoTimeSharp } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
 
 const Invoice = () => {
+    const navigate = useNavigate();
     const { data, isLoading, isError } = useGetInvoiceQuery();
 
     if (isLoading) return <p className="text-center py-8">Loading invoices...</p>;
@@ -88,7 +90,10 @@ const Invoice = () => {
 
 
                         {/* View Invoice Button */}
-                        <button className="w-full bg-[#2D9AD9] hover:bg-[#2589c4] text-white py-2.5 rounded-lg flex items-center justify-center gap-2 transition-colors mt-4">
+                        <button
+                            onClick={() => navigate("/prescriptionModal")}
+                            className="w-full bg-[#2D9AD9] hover:bg-[#2589c4] text-white py-2.5 rounded-lg flex items-center justify-center gap-2 transition-colors mt-4"
+                        >
                             <FaEye className="text-sm" />
                             <span className="text-sm font-medium">View Invoice</span>
                         </button>

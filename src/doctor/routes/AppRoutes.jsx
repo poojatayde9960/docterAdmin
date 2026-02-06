@@ -16,6 +16,7 @@ import Receptionists from '../pages/Receptionists'
 import Plans from '../pages/Plans'
 import Transactions from '../pages/Transactions'
 import InvoiceReceipt from '../pages/invoiceReceipt'
+import PrescriptionModal from '../pages/Invoicemodal/PrescriptionModal'
 
 const AppRoutes = () => {
 
@@ -39,6 +40,7 @@ const AppRoutes = () => {
 
                     <Route path="schedule" element={<WeeklySchedule />} />
                     <Route path="invoice" element={<Invoice />} />
+                    <Route path="prescriptionModal" element={<PrescriptionModal />} />
                     <Route path="invoiceReceipt" element={<InvoiceReceipt />} />
                     <Route path="receptionist" element={<Receptionists />} />
                     <Route path="plans" element={<Plans />} />
