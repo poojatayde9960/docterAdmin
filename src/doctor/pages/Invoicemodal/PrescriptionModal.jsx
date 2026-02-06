@@ -7,8 +7,8 @@ import { IoCloudDownloadOutline } from "react-icons/io5";
 import { CiShare2 } from "react-icons/ci";
 import { useRef } from "react";
 import { useReactToPrint } from "react-to-print";
-import { toPng } from "html-to-image";
-import jsPDF from "jspdf";
+// import { toPng } from "html-to-image";
+// import jsPDF from "jspdf";
 
 export default function PrescriptionModal({
     open,
@@ -33,13 +33,13 @@ export default function PrescriptionModal({
 
         try {
             // High quality PNG export
-            const dataUrl = await toPng(element, {
-                cacheBust: true,
-                pixelRatio: 2,
-                backgroundColor: "#ffffff",
-            });
+            // const dataUrl = await toPng(element, {
+            //     cacheBust: true,
+            //     pixelRatio: 2,
+            //     backgroundColor: "#ffffff",
+            // });
 
-            const pdf = new jsPDF("p", "mm", "a4");
+            // const pdf = new jsPDF("p", "mm", "a4");
             const pdfWidth = pdf.internal.pageSize.getWidth();
 
             const img = new Image();
@@ -185,17 +185,17 @@ export default function PrescriptionModal({
                                         ₹{visitDetails.Visit.reports.reduce((a, b) => a + b.price, 0)}
                                     </p>
                                 </div>
-                                        
+
                                 <div className="flex border-t justify-between font-bold text-base mt-4 mb-3">
                                     <p>TOTAL</p>
                                     <p>
                                         ₹{Number(visitDetails?.Visit?.amount || 0) +
-                                          Number(visitDetails?.Visit?.doctorFees || 0)}
+                                            Number(visitDetails?.Visit?.doctorFees || 0)}
                                     </p>
                                 </div>
 
                             </div>
-                          
+
                             {/* PAYMENT */}
                             <div className="px-10 mt-4 text-sm">
                                 <p className="font-semibold text-green-600">Payment Method</p>
@@ -203,7 +203,7 @@ export default function PrescriptionModal({
                                     {visitDetails.Visit.paymentMethod}
                                 </p>
                             </div>
-                               
+
                             {/* CONTACT */}
                             <div className="px-8 mb-4 relative">
                                 <div className="relative z-10 ml-24 space-y-2">
@@ -223,7 +223,7 @@ export default function PrescriptionModal({
                                 </div>
                             </div>
                         </div>
-                         
+
                         {/* ACTION BUTTONS */}
                         <div className="grid grid-cols-3 gap-4 px-10 mt-8 mb-6">
                             <button
