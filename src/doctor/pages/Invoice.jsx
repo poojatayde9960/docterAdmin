@@ -89,7 +89,7 @@ const Invoice = () => {
                         )}
                         {/* nsdjhbfsdbfs */}
 
-                        {/* View Invoice Button */}
+
                         <button
                             onClick={() => navigate("/invoiceReceipt")}
                             className="w-full bg-[#2D9AD9] hover:bg-[#2589c4] text-white py-2.5 rounded-lg flex items-center justify-center gap-2 transition-colors mt-4"
