@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaUser, FaUserMd, FaCalendarAlt, FaEye } from 'react-icons/fa';
+import { FaUser, FaUserMd, FaCalendarAlt, FaEye, FaFileInvoiceDollar } from 'react-icons/fa';
 import { useGetInvoiceQuery } from '../../redux/apis/patientsApi';
 import { IoTimeOutline, IoTimeSharp } from 'react-icons/io5';
 import { useNavigate } from 'react-router-dom';
@@ -101,10 +101,25 @@ const Invoice = () => {
                 ))}
             </div>
 
-            {/* No Data Message */}
+            {/* No Data Message - Animated */}
             {invoices.length === 0 && (
-                <div className="text-center py-12 text-gray-500">
-                    <p className="text-lg">No invoices found</p>
+                <div className="flex flex-col items-center justify-center min-h-[60vh] p-8 text-center">
+                    <div className="relative mb-6 group">
+                        <div className="absolute inset-0 bg-blue-100 rounded-full animate-ping opacity-25 duration-1000"></div>
+                        <div className="relative bg-white p-8 rounded-full shadow-lg border-2 border-blue-50 transform transition-transform duration-300 group-hover:scale-110">
+                            <FaFileInvoiceDollar className="text-6xl text-[#2D9AD9] animate-pulse" />
+                        </div>
+                    </div>
+
+                    <h3 className="text-2xl font-bold text-gray-800 mb-2">No Invoices Found</h3>
+                    <p className="text-gray-500 max-w-md mb-6 leading-relaxed">
+                        There are no invoices generated yet. Invoices will appear here once patient visits are completed and billed.
+                    </p>
+
+                    {/* Optional: Add a button if there's an action to take, e.g., Create Invoice */}
+                    {/* <button className="bg-[#2D9AD9] text-white px-6 py-2.5 rounded-lg hover:bg-[#2589c4] transition-all shadow-md hover:shadow-lg">
+                        Create New Invoice
+                    </button> */}
                 </div>
             )}
         </div>
