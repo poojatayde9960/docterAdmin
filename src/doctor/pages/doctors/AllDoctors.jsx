@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaEnvelope, FaPhoneAlt, FaPlus, FaTimes, FaTrash } from "react-icons/fa";
+import { FaEnvelope, FaPhoneAlt, FaPlus, FaTimes, FaTrash, FaUserMd } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useGetDoctorsQuery } from "../../../redux/apis/patientsApi";
 import { useAddDoctorMutation } from "../../../redux/apis/receptionApi";
@@ -225,68 +225,94 @@ export default function AllDoctors() {
         </div>
 
 
-        <div className="p-4 w-full bg-[#F6FAFF] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-
-            {doctors.map((doctor, index) => (
-                <Link key={doctor._id} to={`/doctordetails/${doctor._id}`}>
-                    <div className="w-full bg-white rounded-xl shadow p-4 space-y-2">
-                        {/* Doctor ID */}
-                        <div className="bg-[#CC25B0] w-10 rounded-sm text-center">
-                            <p className="text-white text-sm">#{index + 1}</p>
-                        </div>
-
-                        {/* Avatar and Name */}
-                        <div className="flex flex-col items-center text-center">
-                            {/* Dynamic Doctor Image */}
-                            {doctor.image ? (
-                                <img
-                                    src={doctor.image}
-                                    alt={doctor.name}
-                                    className="w-20 h-20 rounded-full object-cover border-4 border-gradient-to-br from-[#0BA7E8] to-[#29C58F] shadow-lg"
-                                />
-                            ) : (
-                                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#0BA7E8] to-[#29C58F] flex items-center justify-center text-white text-3xl font-semibold">
-                                    {doctor.name?.slice(0, 1)}
-                                </div>
-                            )}
-                            <h2 className="mt-4 text-xl font-semibold text-[#0E3C5F]">{doctor.name}</h2>
-                            <p className="text-gray-500 text-sm">{doctor.specialization}</p>
-                        </div>
-
-                        {/* Experience & Appointments */}
-                        <div className="grid grid-cols-2 rounded-xl border p-2 border-blue-100 overflow-hidden">
-                            <div className="p-2 text-center border-r-2 border-blue-100">
-                                <p className="text-black text-sm">Experience</p>
-                                <p className="text-gray-400 font-semibold mt-1">{doctor.experience}+ yrs</p>
-                            </div>
-
-                            <div className="p-2 text-center">
-                                <p className="text-black text-sm">Appointments</p>
-                                <p className="text-gray-400 font-semibold text-lg mt-1">
-                                    {doctor.availabilitySchedule?.length || 0}
-                                </p>
-                            </div>
-                        </div>
-
-                        {/* Email */}
-                        <div className="flex  items-center gap-2">
-                            <div className="text-blue-600">
-                                <FaEnvelope />
-                            </div>
-                            <p className="text-black">{doctor.email}</p>
-                        </div>
-
-                        {/* Contact */}
-                        <div className="flex items-center gap-2">
-                            <div className="text-blue-600">
-                                <FaPhoneAlt />
-                            </div>
-                            <p className="text-black">{doctor.contact}</p>
-                        </div>
+        {doctors.length === 0 ? (
+            <div className="flex flex-col items-center justify-center min-h-[60vh] p-8 text-center bg-[#F6FAFF]">
+                <div className="relative mb-6 group">
+                    <div className="absolute inset-0 bg-blue-200 rounded-full animate-ping opacity-20 duration-1000"></div>
+                    <div className="relative bg-white p-8 rounded-full shadow-xl border-4 border-white transition-transform duration-300 transform group-hover:scale-110">
+                        <FaUserMd className="text-6xl text-[#2D9AD9] animate-bounce-slow" />
                     </div>
-                </Link>
-            ))}
-        </div>
+                </div>
+
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">No Doctors Found</h3>
+                <p className="text-gray-500 max-w-md mb-8 leading-relaxed">
+                    It seems there are no doctors added to the system yet. Start building your team by adding a new doctor.
+                </p>
+
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className="flex items-center gap-3 bg-gradient-to-r from-[#2D9AD9] to-[#2686c0] text-white px-8 py-3.5 rounded-xl shadow-lg hover:shadow-[#2D9AD9]/40 hover:-translate-y-1 transition-all duration-300 font-semibold"
+                >
+                    <div className="bg-white/20 p-1 rounded-full">
+                        <FaPlus className="text-sm" />
+                    </div>
+                    Add First Doctor
+                </button>
+            </div>
+        ) : (
+            <div className="p-4 w-full bg-[#F6FAFF] grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                {doctors.map((doctor, index) => (
+                    <Link key={doctor._id} to={`/doctordetails/${doctor._id}`}>
+                        <div className="w-full bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 p-4 space-y-2 border border-blue-50/50">
+                            {/* Doctor ID */}
+                            <div className="bg-[#CC25B0] w-10 rounded-sm text-center">
+                                <p className="text-white text-sm">#{index + 1}</p>
+                            </div>
+
+                            {/* Avatar and Name */}
+                            <div className="flex flex-col items-center text-center">
+                                {/* Dynamic Doctor Image */}
+                                {doctor.image ? (
+                                    <img
+                                        src={doctor.image}
+                                        alt={doctor.name}
+                                        className="w-20 h-20 rounded-full object-cover border-4 border-white shadow-lg ring-2 ring-[#0BA7E8]/20"
+                                    />
+                                ) : (
+                                    <div className="w-20 h-20 rounded-full bg-gradient-to-br from-[#0BA7E8] to-[#29C58F] flex items-center justify-center text-white text-3xl font-semibold shadow-lg border-4 border-white">
+                                        {doctor.name?.slice(0, 1)}
+                                    </div>
+                                )}
+                                <h2 className="mt-4 text-xl font-bold text-[#0E3C5F]">{doctor.name}</h2>
+                                <p className="text-cyan-600 text-sm font-medium">{doctor.specialization}</p>
+                            </div>
+
+                            {/* Experience & Appointments */}
+                            <div className="grid grid-cols-2 rounded-xl bg-blue-50/50 p-3 mt-4 gap-2">
+                                <div className="text-center border-r border-blue-200 pr-2">
+                                    <p className="text-slate-500 text-xs uppercase tracking-wide">Experience</p>
+                                    <p className="text-[#0E3C5F] font-bold mt-0.5">{doctor.experience}+ yrs</p>
+                                </div>
+
+                                <div className="text-center pl-2">
+                                    <p className="text-slate-500 text-xs uppercase tracking-wide">Appointments</p>
+                                    <p className="text-[#0E3C5F] font-bold text-lg mt-0.5">
+                                        {doctor.availabilitySchedule?.length || 0}
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Email */}
+                            <div className="flex items-center gap-3 pt-2 text-sm text-gray-600">
+                                <div className="w-8 h-8 rounded-full bg-blue-50 flex items-center justify-center text-blue-500 flex-shrink-0">
+                                    <FaEnvelope size={14} />
+                                </div>
+                                <p className="truncate">{doctor.email}</p>
+                            </div>
+
+                            {/* Contact */}
+                            <div className="flex items-center gap-3 pb-2 text-sm text-gray-600">
+                                <div className="w-8 h-8 rounded-full bg-green-50 flex items-center justify-center text-green-500 flex-shrink-0">
+                                    <FaPhoneAlt size={14} />
+                                </div>
+                                <p>{doctor.contact}</p>
+                            </div>
+                        </div>
+                    </Link>
+                ))}
+            </div>
+        )}
 
         {/* Add Doctor Modal */}
         {isModalOpen && (
@@ -296,12 +322,11 @@ export default function AllDoctors() {
             >
                 {/* <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto overflow-x-hidden"></div> */}
                 <div
-                    className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto overflow-x-hidden"
+                    className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] flex flex-col"
                     onClick={(e) => e.stopPropagation()}
                 >
                     {/* Modal Header */}
-                    <div className="sticky top-0 w-full bg-gradient-to-r from-[#2D9AD9] to-[#2686c0] text-white px-8 py-6 flex items-center justify-between rounded-t-2xl z-10">
-                        {/* <div className="sticky top-0 bg-gradient-to-r from-[#2D9AD9] to-[#2686c0] text-white px-8 py-6 flex items-center justify-between rounded-t-2xl z-10"> */}
+                    <div className="w-full bg-gradient-to-r from-[#2D9AD9] to-[#2686c0] text-white px-8 py-6 flex items-center justify-between rounded-t-2xl z-10 flex-shrink-0">
                         <div>
                             <h2 className="text-2xl font-bold">Add New Doctor</h2>
                             <p className="text-blue-100 text-sm mt-1">Fill in the details to add a new doctor</p>
@@ -315,329 +340,331 @@ export default function AllDoctors() {
                         </button>
                     </div>
 
-                    {/* Modal Form */}
-                    <form onSubmit={handleSubmit} className="p-8 space-y-6">
-                        {/* Basic Information Section */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">Basic Information</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Name <span className="text-red-500">*</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        value={formData.name}
-                                        onChange={handleInputChange}
-                                        required
-                                        placeholder="John Doe"
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Email <span className="text-red-500">*</span>
-                                    </label>
-                                    <input
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
-                                        onChange={handleInputChange}
-                                        required
-                                        placeholder="doctor@example.com"
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Contact <span className="text-red-500">*</span>
-                                    </label>
-                                    <input
-                                        type="tel"
-                                        name="contact"
-                                        value={formData.contact}
-                                        onChange={handleInputChange}
-                                        required
-                                        placeholder="9584348330"
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Password <span className="text-red-500">*</span>
-                                    </label>
-                                    <input
-                                        type="password"
-                                        name="password"
-                                        value={formData.password}
-                                        onChange={handleInputChange}
-                                        required
-                                        placeholder="Strong password"
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Gender <span className="text-red-500">*</span>
-                                    </label>
-                                    <select
-                                        name="gender"
-                                        value={formData.gender}
-                                        onChange={handleInputChange}
-                                        required
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
-                                    >
-                                        <option value="male">Male</option>
-                                        <option value="female">Female</option>
-                                        <option value="other">Other</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Date of Birth <span className="text-red-500">*</span>
-                                    </label>
-                                    <input
-                                        type="date"
-                                        name="dateOfBirth"
-                                        value={formData.dateOfBirth}
-                                        onChange={handleInputChange}
-                                        required
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
-                                    />
-                                </div>
-
-                                <div className="md:col-span-2">
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Location <span className="text-red-500">*</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="location"
-                                        value={formData.location}
-                                        onChange={handleInputChange}
-                                        required
-                                        placeholder="City, State"
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Professional Details Section */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">Professional Details</h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Education <span className="text-red-500">*</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="education"
-                                        value={formData.education}
-                                        onChange={handleInputChange}
-                                        required
-                                        placeholder="MBBS, MD"
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Specialization <span className="text-red-500">*</span>
-                                    </label>
-                                    <input
-                                        type="text"
-                                        name="specialization"
-                                        value={formData.specialization}
-                                        onChange={handleInputChange}
-                                        required
-                                        placeholder="Cardiologist, Orthopedic"
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Experience (years) <span className="text-red-500">*</span>
-                                    </label>
-                                    <input
-                                        type="number"
-                                        name="experience"
-                                        value={formData.experience}
-                                        onChange={handleInputChange}
-                                        required
-                                        min="0"
-                                        placeholder="5"
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
-                                    />
-                                </div>
-
-                                <div>
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Profile Image
-                                    </label>
-                                    <input
-                                        type="file"
-                                        name="image"
-                                        onChange={handleInputChange}
-                                        accept="image/*"
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
-                                    />
-                                </div>
-
-                                <div className="md:col-span-2">
-                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                        Description <span className="text-red-500">*</span>
-                                    </label>
-                                    <textarea
-                                        name="description"
-                                        value={formData.description}
-                                        onChange={handleInputChange}
-                                        required
-                                        rows="3"
-                                        placeholder="Brief description about the doctor"
-                                        className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none resize-none"
-                                    />
-                                </div>
-
-                                <div className="md:col-span-2">
-                                    <label className="flex items-center gap-2 cursor-pointer">
+                    {/* Modal Form Container */}
+                    <div className="overflow-y-auto flex-1">
+                        <form onSubmit={handleSubmit} className="p-8 space-y-6">
+                            {/* Basic Information Section */}
+                            <div>
+                                <h3 className="text-lg font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">Basic Information</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            Name <span className="text-red-500">*</span>
+                                        </label>
                                         <input
-                                            type="checkbox"
-                                            name="isExternal"
-                                            checked={formData.isExternal}
+                                            type="text"
+                                            name="name"
+                                            value={formData.name}
                                             onChange={handleInputChange}
-                                            className="w-5 h-5 text-[#2D9AD9] border-2 border-gray-300 rounded focus:ring-[#2D9AD9]"
+                                            required
+                                            placeholder="John Doe"
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
                                         />
-                                        <span className="text-sm font-semibold text-gray-700">External Doctor</span>
-                                    </label>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            Email <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            value={formData.email}
+                                            onChange={handleInputChange}
+                                            required
+                                            placeholder="doctor@example.com"
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            Contact <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="tel"
+                                            name="contact"
+                                            value={formData.contact}
+                                            onChange={handleInputChange}
+                                            required
+                                            placeholder="9584348330"
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            Password <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            value={formData.password}
+                                            onChange={handleInputChange}
+                                            required
+                                            placeholder="Strong password"
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            Gender <span className="text-red-500">*</span>
+                                        </label>
+                                        <select
+                                            name="gender"
+                                            value={formData.gender}
+                                            onChange={handleInputChange}
+                                            required
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
+                                        >
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            Date of Birth <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="date"
+                                            name="dateOfBirth"
+                                            value={formData.dateOfBirth}
+                                            onChange={handleInputChange}
+                                            required
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
+                                        />
+                                    </div>
+
+                                    <div className="md:col-span-2">
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            Location <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="location"
+                                            value={formData.location}
+                                            onChange={handleInputChange}
+                                            required
+                                            placeholder="City, State"
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
+                                        />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        {/* Availability Schedule Section */}
-                        <div>
-                            <h3 className="text-lg font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">Weekly Availability Schedule</h3>
-                            <div className="space-y-4">
-                                {formData.availabilitySchedule.map((daySchedule, dayIndex) => (
-                                    <div key={daySchedule.day} className="border border-gray-200 rounded-lg p-4">
-                                        <h4 className="font-semibold text-gray-800 capitalize mb-3">{daySchedule.day}</h4>
-
-                                        {/* Morning Slots */}
-                                        <div className="mb-3">
-                                            <div className="flex items-center justify-between mb-2">
-                                                <label className="text-sm font-medium text-gray-700">Morning</label>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => addTimeSlot(dayIndex, 'morning')}
-                                                    className="text-[#2D9AD9] hover:text-[#2686c0] text-sm font-medium flex items-center gap-1"
-                                                >
-                                                    <FaPlus className="text-xs" /> Add Slot
-                                                </button>
-                                            </div>
-                                            <div className="space-y-2">
-                                                {daySchedule.morning.map((slot, slotIndex) => (
-                                                    <div key={slotIndex} className="flex gap-2 items-center">
-                                                        <input
-                                                            type="time"
-                                                            value={slot.start}
-                                                            onChange={(e) => updateTimeSlot(dayIndex, 'morning', slotIndex, 'start', e.target.value)}
-                                                            className="flex-1 px-3 py-2 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] outline-none text-sm"
-                                                        />
-                                                        <span className="text-gray-500">to</span>
-                                                        <input
-                                                            type="time"
-                                                            value={slot.end}
-                                                            onChange={(e) => updateTimeSlot(dayIndex, 'morning', slotIndex, 'end', e.target.value)}
-                                                            className="flex-1 px-3 py-2 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] outline-none text-sm"
-                                                        />
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => removeTimeSlot(dayIndex, 'morning', slotIndex)}
-                                                            className="px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
-                                                        >
-                                                            <FaTrash className="text-sm" />
-                                                        </button>
-                                                    </div>
-                                                ))}
-                                                {daySchedule.morning.length === 0 && (
-                                                    <p className="text-sm text-gray-400 italic">No morning slots</p>
-                                                )}
-                                            </div>
-                                        </div>
-
-                                        {/* Evening Slots */}
-                                        <div>
-                                            <div className="flex items-center justify-between mb-2">
-                                                <label className="text-sm font-medium text-gray-700">Evening</label>
-                                                <button
-                                                    type="button"
-                                                    onClick={() => addTimeSlot(dayIndex, 'evening')}
-                                                    className="text-[#2D9AD9] hover:text-[#2686c0] text-sm font-medium flex items-center gap-1"
-                                                >
-                                                    <FaPlus className="text-xs" /> Add Slot
-                                                </button>
-                                            </div>
-                                            <div className="space-y-2">
-                                                {daySchedule.evening.map((slot, slotIndex) => (
-                                                    <div key={slotIndex} className="flex gap-2 items-center">
-                                                        <input
-                                                            type="time"
-                                                            value={slot.start}
-                                                            onChange={(e) => updateTimeSlot(dayIndex, 'evening', slotIndex, 'start', e.target.value)}
-                                                            className="flex-1 px-3 py-2 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] outline-none text-sm"
-                                                        />
-                                                        <span className="text-gray-500">to</span>
-                                                        <input
-                                                            type="time"
-                                                            value={slot.end}
-                                                            onChange={(e) => updateTimeSlot(dayIndex, 'evening', slotIndex, 'end', e.target.value)}
-                                                            className="flex-1 px-3 py-2 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] outline-none text-sm"
-                                                        />
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => removeTimeSlot(dayIndex, 'evening', slotIndex)}
-                                                            className="px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
-                                                        >
-                                                            <FaTrash className="text-sm" />
-                                                        </button>
-                                                    </div>
-                                                ))}
-                                                {daySchedule.evening.length === 0 && (
-                                                    <p className="text-sm text-gray-400 italic">No evening slots</p>
-                                                )}
-                                            </div>
-                                        </div>
+                            {/* Professional Details Section */}
+                            <div>
+                                <h3 className="text-lg font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">Professional Details</h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            Education <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="education"
+                                            value={formData.education}
+                                            onChange={handleInputChange}
+                                            required
+                                            placeholder="MBBS, MD"
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
+                                        />
                                     </div>
-                                ))}
-                            </div>
-                        </div>
 
-                        {/* Modal Footer */}
-                        <div className="flex items-center justify-end gap-4 pt-6 border-t border-gray-200">
-                            <button
-                                type="button"
-                                onClick={() => setIsModalOpen(false)}
-                                className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-all duration-200"
-                            >
-                                Cancel
-                            </button>
-                            <button
-                                type="submit"
-                                disabled={isAddingDoctor}
-                                className="px-8 py-3 bg-gradient-to-r from-[#2D9AD9] to-[#2686c0] text-white rounded-lg hover:shadow-lg hover:shadow-[#2D9AD9]/30 font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-                            >
-                                {isAddingDoctor ? 'Adding...' : 'Add Doctor'}
-                            </button>
-                        </div>
-                    </form>
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            Specialization <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="text"
+                                            name="specialization"
+                                            value={formData.specialization}
+                                            onChange={handleInputChange}
+                                            required
+                                            placeholder="Cardiologist, Orthopedic"
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            Experience (years) <span className="text-red-500">*</span>
+                                        </label>
+                                        <input
+                                            type="number"
+                                            name="experience"
+                                            value={formData.experience}
+                                            onChange={handleInputChange}
+                                            required
+                                            min="0"
+                                            placeholder="5"
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
+                                        />
+                                    </div>
+
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            Profile Image
+                                        </label>
+                                        <input
+                                            type="file"
+                                            name="image"
+                                            onChange={handleInputChange}
+                                            accept="image/*"
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none"
+                                        />
+                                    </div>
+
+                                    <div className="md:col-span-2">
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            Description <span className="text-red-500">*</span>
+                                        </label>
+                                        <textarea
+                                            name="description"
+                                            value={formData.description}
+                                            onChange={handleInputChange}
+                                            required
+                                            rows="3"
+                                            placeholder="Brief description about the doctor"
+                                            className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] focus:ring-4 focus:ring-[#2D9AD9] focus:ring-opacity-10 outline-none resize-none"
+                                        />
+                                    </div>
+
+                                    <div className="md:col-span-2">
+                                        <label className="flex items-center gap-2 cursor-pointer">
+                                            <input
+                                                type="checkbox"
+                                                name="isExternal"
+                                                checked={formData.isExternal}
+                                                onChange={handleInputChange}
+                                                className="w-5 h-5 text-[#2D9AD9] border-2 border-gray-300 rounded focus:ring-[#2D9AD9]"
+                                            />
+                                            <span className="text-sm font-semibold text-gray-700">External Doctor</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Availability Schedule Section */}
+                            <div>
+                                <h3 className="text-lg font-semibold text-gray-800 mb-4 pb-2 border-b border-gray-200">Weekly Availability Schedule</h3>
+                                <div className="space-y-4">
+                                    {formData.availabilitySchedule.map((daySchedule, dayIndex) => (
+                                        <div key={daySchedule.day} className="border border-gray-200 rounded-lg p-4">
+                                            <h4 className="font-semibold text-gray-800 capitalize mb-3">{daySchedule.day}</h4>
+
+                                            {/* Morning Slots */}
+                                            <div className="mb-3">
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <label className="text-sm font-medium text-gray-700">Morning</label>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => addTimeSlot(dayIndex, 'morning')}
+                                                        className="text-[#2D9AD9] hover:text-[#2686c0] text-sm font-medium flex items-center gap-1"
+                                                    >
+                                                        <FaPlus className="text-xs" /> Add Slot
+                                                    </button>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    {daySchedule.morning.map((slot, slotIndex) => (
+                                                        <div key={slotIndex} className="flex gap-2 items-center">
+                                                            <input
+                                                                type="time"
+                                                                value={slot.start}
+                                                                onChange={(e) => updateTimeSlot(dayIndex, 'morning', slotIndex, 'start', e.target.value)}
+                                                                className="flex-1 px-3 py-2 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] outline-none text-sm"
+                                                            />
+                                                            <span className="text-gray-500">to</span>
+                                                            <input
+                                                                type="time"
+                                                                value={slot.end}
+                                                                onChange={(e) => updateTimeSlot(dayIndex, 'morning', slotIndex, 'end', e.target.value)}
+                                                                className="flex-1 px-3 py-2 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] outline-none text-sm"
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => removeTimeSlot(dayIndex, 'morning', slotIndex)}
+                                                                className="px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
+                                                            >
+                                                                <FaTrash className="text-sm" />
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                    {daySchedule.morning.length === 0 && (
+                                                        <p className="text-sm text-gray-400 italic">No morning slots</p>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            {/* Evening Slots */}
+                                            <div>
+                                                <div className="flex items-center justify-between mb-2">
+                                                    <label className="text-sm font-medium text-gray-700">Evening</label>
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => addTimeSlot(dayIndex, 'evening')}
+                                                        className="text-[#2D9AD9] hover:text-[#2686c0] text-sm font-medium flex items-center gap-1"
+                                                    >
+                                                        <FaPlus className="text-xs" /> Add Slot
+                                                    </button>
+                                                </div>
+                                                <div className="space-y-2">
+                                                    {daySchedule.evening.map((slot, slotIndex) => (
+                                                        <div key={slotIndex} className="flex gap-2 items-center">
+                                                            <input
+                                                                type="time"
+                                                                value={slot.start}
+                                                                onChange={(e) => updateTimeSlot(dayIndex, 'evening', slotIndex, 'start', e.target.value)}
+                                                                className="flex-1 px-3 py-2 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] outline-none text-sm"
+                                                            />
+                                                            <span className="text-gray-500">to</span>
+                                                            <input
+                                                                type="time"
+                                                                value={slot.end}
+                                                                onChange={(e) => updateTimeSlot(dayIndex, 'evening', slotIndex, 'end', e.target.value)}
+                                                                className="flex-1 px-3 py-2 border-2 border-gray-200 rounded-lg focus:border-[#2D9AD9] outline-none text-sm"
+                                                            />
+                                                            <button
+                                                                type="button"
+                                                                onClick={() => removeTimeSlot(dayIndex, 'evening', slotIndex)}
+                                                                className="px-3 py-2 bg-red-50 text-red-600 hover:bg-red-100 rounded-lg transition-colors"
+                                                            >
+                                                                <FaTrash className="text-sm" />
+                                                            </button>
+                                                        </div>
+                                                    ))}
+                                                    {daySchedule.evening.length === 0 && (
+                                                        <p className="text-sm text-gray-400 italic">No evening slots</p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Modal Footer */}
+                            <div className="flex items-center justify-end gap-4 pt-6 border-t border-gray-200">
+                                <button
+                                    type="button"
+                                    onClick={() => setIsModalOpen(false)}
+                                    className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium transition-all duration-200"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    disabled={isAddingDoctor}
+                                    className="px-8 py-3 bg-gradient-to-r from-[#2D9AD9] to-[#2686c0] text-white rounded-lg hover:shadow-lg hover:shadow-[#2D9AD9]/30 font-medium transition-all duration-200 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    {isAddingDoctor ? 'Adding...' : 'Add Doctor'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         )}

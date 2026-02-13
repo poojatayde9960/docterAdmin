@@ -60,18 +60,29 @@ const Login = () => {
     return (
         <div className="flex h-screen">
             {/* Left Image */}
-            <div className="hidden md:block w-1/2">
-                <img
-                    src="https://s3-alpha-sig.figma.com/img/784d/f8c3/535aa09c4471cd0dfd404ca03362576e"
-                    alt="Login"
-                    className="w-full h-full object-cover"
-                />
+            <div className="hidden md:flex flex-col justify-center items-center w-1/2 bg-[#2D9AD9] p-10 relative overflow-hidden">
+
+                <div className="flex justify-center mb-6">
+                    <img
+                        src="/logo.png"
+                        alt="TechSurya Logo"
+                        className="w-40 object-contain"
+                    />
+                </div>
+                <div className="relative z-10 flex flex-col items-center text-center">
+                    <h1 className="text-4xl font-extrabold text-white mb-3 tracking-tight">
+                        Welcome Back
+                    </h1>
+                    <p className="text-white text-lg max-w-sm leading-relaxed">
+                        Streamline your practice and manage patient records with ease and precision.
+                    </p>
+                </div>
             </div>
 
             {/* Right Form */}
             <div className="w-full md:w-1/2 flex items-center justify-center p-6 bg-gray-100">
                 <div className="w-full max-w-md bg-white p-6 rounded-lg shadow-md">
-                    <h2 className="text-2xl font-bold text-center mb-4">
+                    <h2 className="text-2xl text-black font-bold text-center mb-4">
                         Login
                     </h2>
 
